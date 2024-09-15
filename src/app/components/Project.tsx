@@ -1,3 +1,4 @@
+'use client'
 import { AmazonwebservicesOriginalWordmark, CsharpOriginal, DockerOriginal, JavascriptOriginal, MicrosoftsqlserverOriginal, MongodbOriginal, MysqlOriginal, NestjsOriginal, NodejsOriginal, ReactOriginal, VuejsOriginal } from "devicons-react"
 import styled from "styled-components"
 
@@ -11,8 +12,13 @@ interface Props {
 export default function Project(props: Props) {
     const iconSize = 40;
 
+    function goToLink() {
+        if (window !== undefined)
+            window.open(props.link, "_blank")
+    }
+
     return (
-        <Card onClick={() => window.open(props.link)}>
+        <Card onClick={goToLink}>
             <div>
                 <h3>{props.title}</h3>
                 <p>{props.message}</p>

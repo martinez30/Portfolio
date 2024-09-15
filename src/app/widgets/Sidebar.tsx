@@ -1,4 +1,4 @@
-import Image from "next/image";
+'use client'
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { SectionNames } from "../constants/SectionNames";
@@ -11,35 +11,44 @@ export default function Sidebar() {
     const [activeSection, setActiveSection] = useState(SectionNames.principal);
 
     const handleScroll = () => {
-        const sections = document.querySelectorAll('section');
-        const scrollPosition = window.scrollY + window.innerHeight / 2;
+        if (window !== undefined) {
 
-        sections.forEach((section) => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            const sectionId = section.getAttribute('id') ?? '';
+            const sections = document.querySelectorAll('section');
+            const scrollPosition = window.scrollY + window.innerHeight / 2;
 
-            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                setActiveSection(sectionId);
-            }
-        });
+            sections.forEach((section) => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                const sectionId = section.getAttribute('id') ?? '';
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    setActiveSection(sectionId);
+                }
+            });
+        }
     };
 
     useEffect(() => {
-        window.addEventListener('scroll', handleScroll);
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
+        if (window !== undefined) {
+
+            window.addEventListener('scroll', handleScroll);
+            return () => {
+                window.removeEventListener('scroll', handleScroll);
+            };
+        }
     }, []);
 
     function scrollToSection(sectionId: string) {
-        const section = document.getElementById(sectionId);
-        if (section) {
-            const sectionPosition = section.offsetTop - 20;
-            window.scrollTo({
-                top: sectionPosition,
-                behavior: 'smooth'
-            })
+        if (window !== undefined) {
+
+            const section = document.getElementById(sectionId);
+            if (section) {
+                const sectionPosition = section.offsetTop - 20;
+                window.scrollTo({
+                    top: sectionPosition,
+                    behavior: 'smooth'
+                })
+            }
         }
     }
 
@@ -47,7 +56,11 @@ export default function Sidebar() {
         <Aside data-aos="fade-right" data-aos-duration="2000">
             <nav>
                 <article className={`menu-item ${activeSection === SectionNames.principal ? 'active' : ''}`}>
-                    <a onClick={() => window.scrollTo({ top: 0 })}>
+                    <a onClick={() => {
+                        if (window !== undefined) {
+                            window.scrollTo({ top: 0 })
+                        }
+                    }}>
                         <IoHome width={20} height={20} />
                     </a>
                     <span>Início</span>

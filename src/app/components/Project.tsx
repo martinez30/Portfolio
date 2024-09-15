@@ -88,4 +88,8 @@ const Card = styled.article`
         background-color: #ccc;
         color: rgba(26, 26, 26, 1);
     }
+
+    @media screen and (max-width: 450px) {
+        max-width: 90%;
+    }
 `

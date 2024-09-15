@@ -35,6 +35,10 @@ header {
 section {
     width: 95%;
     margin-left: auto;
+
+    @media screen and (max-width: 1000px) {
+        width: 100%;
+    }
 }
 
 #principal {
@@ -178,6 +182,16 @@ section {
 
         form {
             width: 100%;
+        }
+
+        article {
+            h3 {
+                font-size: 20px;
+            }
+
+            a {
+                font-size: 18px;
+            }
         }
     }
 }
